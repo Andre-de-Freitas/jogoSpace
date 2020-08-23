@@ -1,4 +1,4 @@
-# Oi, tudo bem? Chegou aqui através do curso, certo? 🙃
+# Jogo Space - interatividade com teclado: setas e barra de espaço
 
 Esse é o repositório da nossa aula de Javascript, na qual vamos fazer um joguinho de space shooter super legal! 
 
@@ -10,4 +10,4 @@ Esse é o repositório da nossa aula de Javascript, na qual vamos fazer um jogui
  
 
 
-## 🚀 Let's code! 🚀
+## 🚀 Vamos lá! 🚀
