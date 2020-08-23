@@ -3,6 +3,7 @@ const playArea = document.querySelector('#main-play-area');
 const aliensImg = ['img/monster-1.png', 'img/monster-2.png', 'img/monster-3.png'];
 const instructionsText = document.querySelector('.game-instructions');
 const startButton = document.querySelector('.start-button');
+var aliensTop = [0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500];  
 let alienInterval;
 
 //movimento e tiro da nave
@@ -34,7 +35,8 @@ function moveUp() {
 //função de descer
 function moveDown() {
     let topPosition = getComputedStyle(yourShip).getPropertyValue('top');
-    if(topPosition === "510px"){
+    // alterei para 500, porque ela estava passando direto do plano estabelecido na parte inferior
+    if(topPosition === "500px"){
         return
     } else {
         let position = parseInt(topPosition);
@@ -90,8 +92,11 @@ function createAliens() {
     newAlien.src = alienSprite;
     newAlien.classList.add('alien');
     newAlien.classList.add('alien-transition');
-    newAlien.style.left = '370px';
-    newAlien.style.top = `${Math.floor(Math.random() * 330) + 30}px`;
+    newAlien.style.left = '400px';
+    newAlien.style.top = `${aliensTop[Math.floor(Math.random() * aliensTop.length)]}px`;
+    //newAlien.style.top = `${Math.floor(Math.random() * 2) + 30}px`;
+    console.log(newAlien);  
+
     playArea.appendChild(newAlien);  
     moveAlien(newAlien);
 }
@@ -100,8 +105,11 @@ function createAliens() {
 function moveAlien(alien) {
     let moveAlienInterval = setInterval(() => {
         let xPosition = parseInt(window.getComputedStyle(alien).getPropertyValue('left'));
+         
+        // se ele chegar no limite.
         if(xPosition <= 50) {
             if(Array.from(alien.classList).includes('dead-alien')) {
+    
                 alien.remove();
             } else {
                 gameOver();
@@ -119,8 +127,11 @@ function checkLaserCollision(laser, alien) {
     let laserBottom = laserTop - 20;
     let alienTop = parseInt(alien.style.top);
     let alienLeft = parseInt(alien.style.left);
-    let alienBottom = alienTop - 30;   
+    let alienBottom = alienTop - 30;  
+
+    // se o laser atingiu ele antes de chegar no ponto limite à esquerda.
     if(laserLeft != 340 && laserLeft + 40 >= alienLeft) {
+        //verificar se acertou ou não         
         if(laserTop <= alienTop && laserTop >= alienBottom) {
             return true;
         } else {
